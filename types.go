@@ -10,7 +10,6 @@ const (
 )
 
 type Wpt struct {
-	//Text       string `xml:",chardata"`
 	Lat        string `xml:"lat,attr"`
 	Lon        string `xml:"lon,attr"`
 	Time       string `xml:"time"`
@@ -20,17 +19,13 @@ type Wpt struct {
 	Sym        string `xml:"sym"`
 	Type       string `xml:"type"`
 	Extensions struct {
-		// Text              string `xml:",chardata"`
 		WaypointExtension struct {
-			// Text        string `xml:",chardata"`
 			DisplayMode string `xml:"gpxx:DisplayMode"`
 		} `xml:"gpxx:WaypointExtension"`
 		WaypointExtensionZ struct {
-			// Text        string `xml:",chardata"`
 			DisplayMode string `xml:"wptx1:DisplayMode"`
 		} `xml:"wptx1:WaypointExtension"`
 		CreationTimeExtension struct {
-			// Text         string `xml:",chardata"`
 			CreationTime string `xml:"ctx:CreationTime"`
 		} `xml:"ctx:CreationTimeExtension"`
 	} `xml:"extensions"`
@@ -68,28 +63,26 @@ func (w *Wpt) Garminify() {
 }
 
 type Gpx struct {
-	XMLName xml.Name `xml:"gpx"`
-	// Text           string   `xml:",chardata"`
-	Xmlns          string `xml:"xmlns,attr"`
-	Xsi            string `xml:"xmlns:xsi,attr"`
-	Wptx1          string `xml:"xmlns:wptx1,attr"`
-	Gpxtrx         string `xml:"xmlns:gpxtrx,attr"`
-	Gpxtpx         string `xml:"xmlns:gpxtpx,attr"`
-	Gpxx           string `xml:"xmlns:gpxx,attr"`
-	Trp            string `xml:"xmlns:trp,attr"`
-	Adv            string `xml:"xmlns:adv,attr"`
-	Prs            string `xml:"xmlns:prs,attr"`
-	Tmd            string `xml:"xmlns:tmd,attr"`
-	Vptm           string `xml:"xmlns:vptm,attr"`
-	Ctx            string `xml:"xmlns:ctx,attr"`
-	Gpxacc         string `xml:"xmlns:gpxacc,attr"`
-	Gpxpx          string `xml:"xmlns:gpxpx,attr"`
-	Vidx1          string `xml:"xmlns:vidx1,attr"`
-	Creator        string `xml:"creator,attr"`
-	Version        string `xml:"version,attr"`
-	SchemaLocation string `xml:"schemaLocation,attr"`
+	XMLName        xml.Name `xml:"gpx"`
+	Xmlns          string   `xml:"xmlns,attr"`
+	Xsi            string   `xml:"xmlns:xsi,attr"`
+	Wptx1          string   `xml:"xmlns:wptx1,attr"`
+	Gpxtrx         string   `xml:"xmlns:gpxtrx,attr"`
+	Gpxtpx         string   `xml:"xmlns:gpxtpx,attr"`
+	Gpxx           string   `xml:"xmlns:gpxx,attr"`
+	Trp            string   `xml:"xmlns:trp,attr"`
+	Adv            string   `xml:"xmlns:adv,attr"`
+	Prs            string   `xml:"xmlns:prs,attr"`
+	Tmd            string   `xml:"xmlns:tmd,attr"`
+	Vptm           string   `xml:"xmlns:vptm,attr"`
+	Ctx            string   `xml:"xmlns:ctx,attr"`
+	Gpxacc         string   `xml:"xmlns:gpxacc,attr"`
+	Gpxpx          string   `xml:"xmlns:gpxpx,attr"`
+	Vidx1          string   `xml:"xmlns:vidx1,attr"`
+	Creator        string   `xml:"creator,attr"`
+	Version        string   `xml:"version,attr"`
+	SchemaLocation string   `xml:"schemaLocation,attr"`
 	Metadata       struct {
-		// Text string `xml:",chardata"`
 		Link struct {
 			Chardata string `xml:",chardata"`
 			Href     string `xml:"href,attr"`
@@ -97,7 +90,6 @@ type Gpx struct {
 		} `xml:"link"`
 		Time   string `xml:"time"`
 		Bounds struct {
-			// Text   string `xml:",chardata"`
 			Maxlat string `xml:"maxlat,attr"`
 			Maxlon string `xml:"maxlon,attr"`
 			Minlat string `xml:"minlat,attr"`
@@ -106,21 +98,16 @@ type Gpx struct {
 	} `xml:"metadata"`
 	Wpt []*Wpt `xml:"wpt"`
 	Trk struct {
-		// Text       string `xml:",chardata"`
 		Name       string `xml:"name"`
 		Extensions struct {
-			// Text           string `xml:",chardata"`
 			TrackExtension struct {
-				Text         string `xml:",chardata"`
 				DisplayColor string `xml:"gpxx:DisplayColor"`
 			} `xml:"gpxx:TrackExtension"`
 		} `xml:"extensions"`
 		Trkseg struct {
-			// Text  string `xml:",chardata"`
 			Trkpt []struct {
-				Text string `xml:",chardata"`
-				Lat  string `xml:"lat,attr"`
-				Lon  string `xml:"lon,attr"`
+				Lat string `xml:"lat,attr"`
+				Lon string `xml:"lon,attr"`
 			} `xml:"trkpt"`
 		} `xml:"trkseg"`
 	} `xml:"trk"`

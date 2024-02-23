@@ -40,13 +40,32 @@ func main() {
 	}
 	defer f.Close()
 
-	content, err := io.ReadAll(f)
+	parsed, err := Parse(f)
 	if err != nil {
-		fmt.Println("could not read file:", err)
+		fmt.Println("Failed to parse input file:", err.Error())
 		os.Exit(1)
 	}
 
+	t := time.Now().Format("2006-01-02_15-04-05")
+	out := t + "-garminified-" + filename
+	outfile, err := os.Create(out)
+	if err != nil {
+		fmt.Println("Could not create output file", outfile)
+		os.Exit(1)
+	}
+	defer outfile.Close()
+	outfile.Write(parsed)
+	fmt.Println("Wrote file", out)
+}
+
+func Parse(r io.Reader) ([]byte, error) {
 	var gpx *Gpx
+
+	content, err := io.ReadAll(r)
+
+	if err != nil {
+		return nil, err
+	}
 
 	err = xml.Unmarshal(content, &gpx)
 	if err != nil {
@@ -68,17 +87,8 @@ func main() {
 	if err != nil {
 		fmt.Println("could not marshal XML:", err)
 	}
+	return xstr, nil
 
-	t := time.Now().Format("2006-01-02_15-04-05")
-	out := t + "-garminified-" + filename
-	outfile, err := os.Create(out)
-	if err != nil {
-		fmt.Println("Could not create output file", outfile)
-		os.Exit(1)
-	}
-	defer outfile.Close()
-	outfile.Write(xstr)
-	fmt.Println("Wrote file", out)
 }
 
 func findMax(values []string) string {
@@ -92,7 +102,7 @@ func findMin(values []string) string {
 func extractAndParse(values []string) []float64 {
 	floats := make([]float64, 0)
 	for _, strval := range values {
-		val, err := strconv.ParseFloat(strval, 32)
+		val, err := strconv.ParseFloat(strval, 64)
 		if err != nil {
 			panic("could not convert string to float: " + err.Error())
 		}
